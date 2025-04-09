@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
 }
+
 
 android {
     namespace = "com.example.movietitledisplay"
@@ -44,5 +46,6 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.picasso:picasso:2.8")
+    implementation("com.google.firebase:firebase-auth:22.3.1")
 
 }

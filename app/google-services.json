@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "472148837104",
+    "project_id": "finalmovieapp",
+    "storage_bucket": "finalmovieapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:472148837104:android:559d5a1757bece136cb835",
+        "android_client_info": {
+          "package_name": "com.example.movietitledisplay"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3bo_FvuEGLkTVZ_34AUAbQo62Ztm_X8w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -13,15 +13,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieTitleDisplay">
 
-        <activity android:name=".view.MovieDetailsActivity" />
+        <!-- Launcher screen with required exported flag -->
         <activity
-            android:name=".view.MainActivity"
+            android:name=".view.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Register screen -->
+        <activity android:name=".view.RegisterActivity" />
+
+        <!-- Movie list screen -->
+        <activity android:name=".view.MainActivity" />
+
+        <!-- Movie detail screen -->
+        <activity android:name=".view.MovieDetailsActivity" />
     </application>
 
 </manifest>

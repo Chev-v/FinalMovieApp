@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,76 +14,69 @@ import com.example.movietitledisplay.R;
 import com.example.movietitledisplay.adapter.MovieAdapter;
 import com.example.movietitledisplay.model.Movie;
 import com.example.movietitledisplay.viewmodel.MovieViewModel;
+import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.ArrayList;
+import java.util.List;
 
+// Main screen that shows movie search UI
 public class MainActivity extends AppCompatActivity {
 
-    // ViewModel follows MVVM - connects UI with the data and keeps it alive through rotations
     private MovieViewModel movieViewModel;
-
-    // Adapter binds the list of movies to the RecyclerView UI
-    private MovieAdapter movieAdapter;
-
-    // RecyclerView is the UI component that shows the movie list in a scrollable view
     private RecyclerView recyclerView;
-
-    // EditText for user to type their movie search
-    private EditText editSearch;
-
-    // Button that starts the search process
-    private Button btnSearch;
+    private MovieAdapter adapter;
+    private EditText searchInput;
+    private Button logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // If user is not signed in, redirect to login screen
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return;
+        }
+
         setContentView(R.layout.activity_main);
 
-        // Link UI components to their XML counterparts
-        editSearch = findViewById(R.id.editSearch);
-        btnSearch = findViewById(R.id.btnSearch);
-        recyclerView = findViewById(R.id.recyclerView);
-
-        // Set up the adapter and tell it what happens when a user clicks a movie
-        movieAdapter = new MovieAdapter(new ArrayList<>(), movie -> {
-            // When a movie is clicked, open a new screen (MovieDetailsActivity)
-            Intent intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
-            // Pass the selected movie's IMDb ID to the next screen so we can fetch details
-            intent.putExtra("imdbID", movie.getImdbID());
-            startActivity(intent);
-        });
-
-        // Connect the adapter and layout manager to the RecyclerView
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(movieAdapter);
-
-        // Set up the ViewModel - this is where LiveData and business logic live
+        // Set up ViewModel
         movieViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
 
-        // When the LiveData list of movies changes (after search), update the adapter
-        movieViewModel.getMovies().observe(this, movies -> {
-            if (movies != null && !movies.isEmpty()) {
-                // If results exist, show them
-                movieAdapter.updateMovies(movies);
-            } else {
-                // Otherwise, show a toast message and clear the list visually
-                Toast.makeText(this, "No results found", Toast.LENGTH_SHORT).show();
-                movieAdapter.updateMovies(new ArrayList<>());
-            }
+        // Configure RecyclerView for displaying search results
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new MovieAdapter(this, movie -> {
+            // Go to details when a movie is clicked
+            Intent intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
+            intent.putExtra("movie", movie);
+            startActivity(intent);
         });
+        recyclerView.setAdapter(adapter);
 
-        // When user taps the Search button
-        btnSearch.setOnClickListener(v -> {
-            // Get the search term from the input box
-            String query = editSearch.getText().toString().trim();
-
+        // Search input field
+        searchInput = findViewById(R.id.searchInput);
+        findViewById(R.id.searchButton).setOnClickListener(v -> {
+            String query = searchInput.getText().toString().trim();
             if (!query.isEmpty()) {
-                // Pass the search term to ViewModel, which handles the rest
                 movieViewModel.searchMovies(query);
-            } else {
-                // Tell the user to actually enter something
-                Toast.makeText(MainActivity.this, "Please enter a movie name", Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Update list when movies load
+        movieViewModel.getMovies().observe(this, this::updateMovies);
+
+        // Logout button click event
+        logoutButton = findViewById(R.id.logoutButton);
+        logoutButton.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
+        });
+    }
+
+    // This method updates the movie list
+    private void updateMovies(List<Movie> movies) {
+        adapter.setMovies(movies);
     }
 }

@@ -1,30 +1,57 @@
 package com.example.movietitledisplay.model;
 
-// This class represents a single Movie object
-public class Movie {
+import java.io.Serializable;
 
-    // Basic info we show in the search results
-    public String Title;
-    public String Year;
-    public String imdbID;
-    public String Type;
-    public String Poster;
+// Represents a single movie result or detail
+public class Movie implements Serializable {
 
-    // Additional info shown in the details screen
-    public String Rated;
-    public String Runtime;
-    public String Genre;
-    public String Plot;
+    private String Title;
+    private String Year;
+    private String imdbID;
+    private String Type;
+    private String Poster;
 
-    // These getter methods are used to access the data elsewhere in the app
-    public String getTitle() { return Title; }
-    public String getYear() { return Year; }
-    public String getImdbID() { return imdbID; }
-    public String getType() { return Type; }
-    public String getPoster() { return Poster; }
+    // Additional fields used in MovieDetailsActivity
+    private String Rated;
+    private String Runtime;
+    private String Genre;
+    private String Plot;
 
-    public String getRated() { return Rated; }
-    public String getRuntime() { return Runtime; }
-    public String getGenre() { return Genre; }
-    public String getPlot() { return Plot; }
+    // Getters for base fields
+    public String getTitle() {
+        return Title;
+    }
+
+    public String getYear() {
+        return Year;
+    }
+
+    public String getImdbID() {
+        return imdbID;
+    }
+
+    public String getType() {
+        return Type;
+    }
+
+    public String getPoster() {
+        return Poster;
+    }
+
+    // Getters for details view
+    public String getRated() {
+        return Rated;
+    }
+
+    public String getRuntime() {
+        return Runtime;
+    }
+
+    public String getGenre() {
+        return Genre;
+    }
+
+    public String getPlot() {
+        return Plot;
+    }
 }

@@ -1,59 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="#121212">
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <!-- Search input -->
+    <!-- Search bar -->
     <EditText
-        android:id="@+id/searchInput"
-        android:layout_width="0dp"
+        android:id="@+id/editTextSearch"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Search for a movie..."
-        android:textColor="#FFFFFF"
-        android:textColorHint="#888888"
-        android:backgroundTint="#FFFFFF"
-        android:padding="12dp"
-        android:inputType="text"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/searchButton"
-        app:layout_constraintHorizontal_weight="1"/>
+        android:hint="Search movies"
+        android:inputType="text" />
 
     <!-- Search button -->
     <Button
-        android:id="@+id/searchButton"
+        android:id="@+id/buttonSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Search"
-        app:layout_constraintTop_toTopOf="@id/searchInput"
-        app:layout_constraintBottom_toBottomOf="@id/searchInput"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_marginTop="8dp" />
 
-    <!-- RecyclerView for displaying results -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:paddingTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/searchInput"
-        app:layout_constraintBottom_toTopOf="@id/logoutButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Logout button -->
-    <Button
-        android:id="@+id/logoutButton"
+    <!-- Progress bar -->
+    <ProgressBar
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Logout"
-        app:layout_constraintTop_toBottomOf="@id/recyclerView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="12dp"/>
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- RecyclerView for movie results -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewMovies"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_weight="1" />
+</LinearLayout>

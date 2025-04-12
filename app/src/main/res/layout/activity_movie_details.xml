@@ -2,72 +2,68 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212"
     android:padding="16dp">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:gravity="center_horizontal">
 
+        <!-- Movie Poster -->
         <ImageView
-            android:id="@+id/posterImage"
+            android:id="@+id/imageViewPoster"
             android:layout_width="200dp"
             android:layout_height="300dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="Movie Poster" />
 
+        <!-- Movie Title -->
         <TextView
-            android:id="@+id/titleText"
+            android:id="@+id/textViewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Movie Title"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:paddingBottom="12dp" />
 
+        <!-- Rated -->
         <TextView
-            android:id="@+id/yearText"
+            android:id="@+id/textViewRated"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#AAAAAA"
-            android:layout_marginTop="8dp"/>
+            android:text="Rated: N/A"
+            android:textSize="16sp"
+            android:paddingBottom="8dp" />
 
+        <!-- Runtime -->
         <TextView
-            android:id="@+id/typeText"
+            android:id="@+id/textViewRuntime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#AAAAAA"
-            android:layout_marginTop="4dp"/>
+            android:text="Runtime: N/A"
+            android:textSize="16sp"
+            android:paddingBottom="8dp" />
 
+        <!-- Genre -->
         <TextView
-            android:id="@+id/ratedText"
+            android:id="@+id/textViewGenre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#AAAAAA"
-            android:layout_marginTop="4dp"/>
+            android:text="Genre: N/A"
+            android:textSize="16sp"
+            android:paddingBottom="8dp" />
 
+        <!-- Plot -->
         <TextView
-            android:id="@+id/runtimeText"
+            android:id="@+id/textViewPlot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#AAAAAA"
-            android:layout_marginTop="4dp"/>
-
-        <TextView
-            android:id="@+id/genreText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#AAAAAA"
-            android:layout_marginTop="4dp"/>
-
-        <TextView
-            android:id="@+id/plotText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#CCCCCC"
-            android:layout_marginTop="12dp"
-            android:textStyle="italic"/>
+            android:text="Plot: N/A"
+            android:textSize="16sp"
+            android:paddingBottom="8dp" />
 
     </LinearLayout>
 </ScrollView>

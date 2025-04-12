@@ -1,9 +1,11 @@
 package com.example.movietitledisplay.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,30 +13,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movietitledisplay.R;
 import com.example.movietitledisplay.model.Movie;
+import com.example.movietitledisplay.view.MovieDetailsActivity;
+import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
-// Adapter to bind movie list to RecyclerView
+// Adapter for a compact dropdown-style movie list
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
-    private Context context;
-    private List<Movie> movieList = new ArrayList<>();
-    private OnMovieClickListener clickListener;
+    private final List<Movie> movieList;
+    private final Context context;
 
-    public interface OnMovieClickListener {
-        void onMovieClick(Movie movie);
-    }
-
-    public MovieAdapter(Context context, OnMovieClickListener listener) {
+    public MovieAdapter(List<Movie> movieList, Context context) {
+        this.movieList = movieList;
         this.context = context;
-        this.clickListener = listener;
-    }
-
-    // Allows us to update movie list from outside
-    public void setMovies(List<Movie> movies) {
-        this.movieList = movies;
-        notifyDataSetChanged();
     }
 
     @NonNull
@@ -47,13 +39,19 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
         Movie movie = movieList.get(position);
-        holder.titleText.setText(movie.getTitle());
+        holder.textViewTitle.setText(movie.getTitle());
 
-        // Trigger click callback
+        // Load small poster image
+        if (movie.getPoster() != null && !movie.getPoster().equals("N/A")) {
+            Picasso.get().load(movie.getPoster()).resize(60, 90).centerCrop().into(holder.imageViewPoster);
+        } else {
+            holder.imageViewPoster.setImageResource(R.drawable.ic_launcher_background);
+        }
+
         holder.itemView.setOnClickListener(v -> {
-            if (clickListener != null) {
-                clickListener.onMovieClick(movie);
-            }
+            Intent intent = new Intent(context, MovieDetailsActivity.class);
+            intent.putExtra("movie", movie);
+            context.startActivity(intent);
         });
     }
 
@@ -62,12 +60,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return movieList.size();
     }
 
-    public static class MovieViewHolder extends RecyclerView.ViewHolder {
-        TextView titleText;
+    static class MovieViewHolder extends RecyclerView.ViewHolder {
+        TextView textViewTitle;
+        ImageView imageViewPoster;
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
-            titleText = itemView.findViewById(R.id.textViewTitle);
+            textViewTitle = itemView.findViewById(R.id.textViewTitle);
+            imageViewPoster = itemView.findViewById(R.id.imageViewPoster);
         }
     }
 }

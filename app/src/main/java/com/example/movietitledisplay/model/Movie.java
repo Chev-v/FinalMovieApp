@@ -1,57 +1,109 @@
 package com.example.movietitledisplay.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
-// Represents a single movie result or detail
+// Represents a Movie object from the OMDB API
 public class Movie implements Serializable {
 
-    private String Title;
-    private String Year;
+    @SerializedName("Title")
+    private String title;
+
+    @SerializedName("Year")
+    private String year;
+
+    @SerializedName("imdbID")
     private String imdbID;
-    private String Type;
-    private String Poster;
 
-    // Additional fields used in MovieDetailsActivity
-    private String Rated;
-    private String Runtime;
-    private String Genre;
-    private String Plot;
+    @SerializedName("Type")
+    private String type;
 
-    // Getters for base fields
+    @SerializedName("Poster")
+    private String poster;
+
+    @SerializedName("Rated")
+    private String rated;
+
+    @SerializedName("Runtime")
+    private String runtime;
+
+    @SerializedName("Genre")
+    private String genre;
+
+    @SerializedName("Plot")
+    private String plot;
+
+    // Getters and Setters
     public String getTitle() {
-        return Title;
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getYear() {
-        return Year;
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 
     public String getImdbID() {
         return imdbID;
     }
 
+    public void setImdbID(String imdbID) {
+        this.imdbID = imdbID;
+    }
+
     public String getType() {
-        return Type;
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getPoster() {
-        return Poster;
+        return poster;
     }
 
-    // Getters for details view
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
+
     public String getRated() {
-        return Rated;
+        return rated;
+    }
+
+    public void setRated(String rated) {
+        this.rated = rated;
     }
 
     public String getRuntime() {
-        return Runtime;
+        return runtime;
+    }
+
+    public void setRuntime(String runtime) {
+        this.runtime = runtime;
     }
 
     public String getGenre() {
-        return Genre;
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     public String getPlot() {
-        return Plot;
+        return plot;
+    }
+
+    public void setPlot(String plot) {
+        this.plot = plot;
     }
 }
